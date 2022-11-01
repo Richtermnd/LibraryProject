@@ -3,17 +3,18 @@ from PyQt5.QtWidgets import QWidget, QLineEdit, QComboBox, QApplication, QLabel,
 from PyQt5 import uic
 
 
-class Form(QWidget):
-    def __init__(self):
+class BaseForm(QWidget):
+    def __init__(self, holder):
         super().__init__()
         uic.loadUi('ui/Form.ui', self)
+        self.holder = holder
         self.button_add.clicked.connect(self.return_form)
         self._initUI()
 
     def _initUI(self):
-        """ Override this """
+        """ Override this. Only QLineEdit or QComboBox like field"""
 
-    def return_form(self) -> dict:
+    def return_form(self):
         """ Return dict from form items"""
         res = {}
         for row in range(self.formLayout.rowCount()):
@@ -32,11 +33,13 @@ class Form(QWidget):
                 # I promise to make exceptions
                 raise Exception
             res[field] = data
-        return res
+        # It doesn't safe, but I has not normal tools in python
+        self.holder.get_form_result(res)
+        self.close()
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Form()
+    ex = BaseForm()
     ex.show()
     sys.exit(app.exec())
