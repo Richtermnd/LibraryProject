@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QLabel, QComboBox, QLineEdit
 from forms.BaseForm import BaseForm
 
 
-class FilterForm(BaseForm):
+class BookFilterForm(BaseForm):
     def __init__(self, holder):
         super().__init__(holder)
 
@@ -16,3 +16,7 @@ class FilterForm(BaseForm):
         label = QLabel('Критерий')
         label.setObjectName('criter')
         self.formLayout.addRow(label, QLineEdit())
+
+    def return_result(self, res):
+        # add_filter - BasePanel method
+        self.holder.add_filter(res)

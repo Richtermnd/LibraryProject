@@ -1,22 +1,23 @@
-import sys
-from PyQt5.QtWidgets import QWidget, QLineEdit, QComboBox, QApplication, QLabel, QFormLayout
+from PyQt5.QtWidgets import QWidget, QLineEdit, QComboBox, QFormLayout
 from PyQt5 import uic
 
 
 class BaseForm(QWidget):
     def __init__(self, holder):
         super().__init__()
-        uic.loadUi('ui/Form.ui', self)
+        uic.loadUi(r'..\ui\Form.ui', self)
         self.holder = holder
-        self.button_add.clicked.connect(self.return_form)
+        self.button_add.clicked.connect(self.get_form_result)
         self._initUI()
 
     def _initUI(self):
         """ Override this. Only QLineEdit or QComboBox like field"""
 
-    def return_form(self):
+    def get_form_result(self):
         """ Return dict from form items"""
         res = {}
+
+        # Read data from QFormLayout
         for row in range(self.formLayout.rowCount()):
             field = self.formLayout.itemAt(row, QFormLayout.LabelRole).widget().objectName()
             data = self.formLayout.itemAt(row, QFormLayout.FieldRole).widget()
@@ -28,18 +29,16 @@ class BaseForm(QWidget):
             else:
                 # I will make other exceptions next time xd
                 raise Exception
+
             # check for data is not empty
             if not data:
                 # I promise to make exceptions
                 raise Exception
             res[field] = data
-        # It doesn't safe, but I has not normal tools in python
-        self.holder.get_form_result(res)
+
+        self.return_result(res)
         self.close()
 
+    def return_result(self, res):
+        """ Override with necessary holder method """
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = BaseForm()
-    ex.show()
-    sys.exit(app.exec())

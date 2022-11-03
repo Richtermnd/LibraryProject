@@ -26,9 +26,9 @@
   <widget class="QLineEdit" name="input_search">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>20</x>
      <y>20</y>
-     <width>671</width>
+     <width>661</width>
      <height>31</height>
     </rect>
    </property>
@@ -55,16 +55,20 @@
      <height>231</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QComboBox" name="comboBox_search_by">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>21</y>
-     <width>111</width>
-     <height>31</height>
-    </rect>
+   <property name="rowCount">
+    <number>0</number>
    </property>
+   <property name="columnCount">
+    <number>1</number>
+   </property>
+   <attribute name="horizontalHeaderDefaultSectionSize">
+    <number>210</number>
+   </attribute>
+   <column>
+    <property name="text">
+     <string>История</string>
+    </property>
+   </column>
   </widget>
   <widget class="QTableWidget" name="table_filter">
    <property name="geometry">
@@ -108,13 +112,26 @@
     <string>Удалить фильтр</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="button_about">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>20</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Информация</string>
+   </property>
+  </widget>
   <zorder>table_history</zorder>
   <zorder>table_main</zorder>
   <zorder>input_search</zorder>
   <zorder>button_add_filter</zorder>
-  <zorder>comboBox_search_by</zorder>
   <zorder>table_filter</zorder>
   <zorder>button_remove_filter</zorder>
+  <zorder>button_about</zorder>
  </widget>
  <resources/>
  <connections/>
