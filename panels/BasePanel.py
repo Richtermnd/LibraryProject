@@ -15,8 +15,8 @@ class BasePanel(QWidget):
 
         # -- vars --
         self.filter_list = []
-        self.filter_form = filter_form  # attempt at abstraction
-        self.about_widget = about_widget  # I won't say anything
+        self.filter_form = filter_form
+        self.about_widget = about_widget
         self.table = table
         self.headers = headers
         self.base_req = base_req
@@ -32,23 +32,16 @@ class BasePanel(QWidget):
         # -- loading and update other widgets --
         self.update_main_table()
 
-    def create_request(self) -> str:
-        """ Create request for update_main_table() func with filters and other """
-        req = self.base_req
-        if self.filter_list:
-            req += ' WHERE '
-            req += ' AND '.join([f'{self.table}.{param} {criter}' for param, criter in self.filter_list])
-        return req
-
     def update_main_table(self) -> None:
         """ Update main table with filters and other """
-        res = self.cur.execute(self.create_request())
-        headers = [elem[0] for elem in res.description]
-        res = self.search(res.fetchall())
+        res = self.cur.execute(self.base_req)
+        res = res.fetchall()
+        res = self.search(res)
+        res = self.apply_filters(res)
 
         self.table_main.setRowCount(len(res))
-        self.table_main.setColumnCount(len(headers))
-        self.table_main.setHorizontalHeaderLabels(headers)
+        self.table_main.setColumnCount(len(self.headers))
+        self.table_main.setHorizontalHeaderLabels(self.headers)
 
         for i, row in enumerate(res):
             for j, elem in enumerate(row):
@@ -63,12 +56,22 @@ class BasePanel(QWidget):
         self.table_filter.setRowCount(0)
         for i, fltr in enumerate(self.filter_list):
             self.table_filter.setRowCount(self.table_filter.rowCount() + 1)
-            for j, elem in enumerate(fltr):
-                item = QTableWidgetItem(str(elem))
-                item.setFlags(QtCore.Qt.ItemIsEnabled)
-                self.table_filter.setItem(
-                    i, j, item)
+            param = self.headers[fltr[0]]
+            item = QTableWidgetItem(str(param))
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.table_filter.setItem(i, 0, item)
+
+            criter = str(fltr[1])
+            item = QTableWidgetItem(str(criter))
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.table_filter.setItem(i, 1, item)
+
         self.table_filter.resizeColumnsToContents()
+
+    def apply_filters(self, res):
+        for param, criter in self.filter_list:
+            res = [elem for elem in res if eval(str(elem[param]) + criter)]
+        return res
 
     def add_filter(self, fltr: dict) -> None:
         """ Add filter from form to filter list """
@@ -81,11 +84,11 @@ class BasePanel(QWidget):
         """ Remove filter """
         try:
             index = self.table_filter.currentItem().row()
-        except:
+        except AttributeError as e:
             return
         self.filter_list.pop(index)
-        self.update_main_table()
         self.update_filter_table()
+        self.update_main_table()
 
     def search(self, table: list[list[str]]) -> list[list[str]]:
         text = self.input_search.text().lower()
