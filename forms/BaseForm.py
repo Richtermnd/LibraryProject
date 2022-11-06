@@ -5,9 +5,10 @@ from PyQt5 import uic
 class BaseForm(QWidget):
     def __init__(self, holder):
         super().__init__()
-        uic.loadUi(r'..\ui\Form.ui', self)
+        uic.loadUi(r'ui\Form.ui', self)
         self.holder = holder
         self.button_add.clicked.connect(self.get_form_result)
+        self.button_cancel.clicked.connect(self.close)
         self._initUI()
 
     def _initUI(self):

@@ -7,10 +7,10 @@ from PyQt5 import uic
 class BookPreview(QWidget):
     def __init__(self, book_id):
         super().__init__()
-        uic.loadUi(r'..\ui\BookPreview.ui', self)
+        uic.loadUi(r'ui\BookPreview.ui', self)
 
         # just grab a book from db
-        con = sqlite3.connect(r'..\db\Library_db.db')
+        con = sqlite3.connect(r'db\Library_db.db')
         self.book = con.cursor().execute(f'select * from book where id = {book_id}').fetchone()
         con.close()
         self._initUI()

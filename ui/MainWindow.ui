@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1083</width>
+    <height>702</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1083</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Книги</string>
+    </property>
+    <addaction name="open_books_panel"/>
+    <addaction name="book_edit_panel"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Операции</string>
+    </property>
+    <addaction name="open_operations_panel"/>
+    <addaction name="create_operation"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="open_books_panel">
+   <property name="text">
+    <string>Панель книг</string>
+   </property>
+  </action>
+  <action name="book_edit_panel">
+   <property name="text">
+    <string>Добавить книгу</string>
+   </property>
+  </action>
+  <action name="open_operations_panel">
+   <property name="text">
+    <string>Панель операций</string>
+   </property>
+  </action>
+  <action name="create_operation">
+   <property name="text">
+    <string>Совершить операцию</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

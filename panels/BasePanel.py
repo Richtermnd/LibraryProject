@@ -7,10 +7,10 @@ class BasePanel(QWidget):
     def __init__(self, filter_form, about_widget, table, headers, base_req):
         # -- UI --
         super().__init__()
-        uic.loadUi(r'..\ui\Panel.ui', self)
+        uic.loadUi(r'ui\Panel.ui', self)
 
         # -- SQLite --
-        self.con = sqlite3.connect(r'..\\db\Library_db.db')
+        self.con = sqlite3.connect(r'db\Library_db.db')
         self.cur = self.con.cursor()
 
         # -- vars --

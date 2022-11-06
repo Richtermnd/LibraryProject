@@ -21,7 +21,7 @@ class BookPanel(BasePanel):
             row = self.table_main.currentItem().row()
             index = self.table_main.item(row, 0).text()
             title = self.table_main.item(row, 1).text()
-        except:
+        except AttributeError:
             return
 
         # if preview is not attr it closing immediately
