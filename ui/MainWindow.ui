@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1083</width>
-    <height>702</height>
+    <width>1137</width>
+    <height>724</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,46 +19,89 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1083</width>
+     <width>1137</width>
      <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>Книги</string>
+     <string>Панели</string>
     </property>
     <addaction name="open_books_panel"/>
-    <addaction name="book_edit_panel"/>
+    <addaction name="open_operations_panel"/>
+    <addaction name="open_client_panel"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
-     <string>Операции</string>
+     <string>Прочее</string>
     </property>
-    <addaction name="open_operations_panel"/>
-    <addaction name="create_operation"/>
+    <addaction name="action_add_author"/>
+    <addaction name="action_add_genre"/>
+    <addaction name="action_add_op_type"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_add_item"/>
+   <addaction name="action_add_filter"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <action name="open_books_panel">
    <property name="text">
-    <string>Панель книг</string>
-   </property>
-  </action>
-  <action name="book_edit_panel">
-   <property name="text">
-    <string>Добавить книгу</string>
+    <string>Книги</string>
    </property>
   </action>
   <action name="open_operations_panel">
    <property name="text">
-    <string>Панель операций</string>
+    <string>Операции</string>
    </property>
   </action>
-  <action name="create_operation">
+  <action name="open_client_panel">
    <property name="text">
-    <string>Совершить операцию</string>
+    <string>Клиенты</string>
+   </property>
+  </action>
+  <action name="action_add_item">
+   <property name="icon">
+    <iconset>
+     <normaloff>../icons/icon_add.png</normaloff>../icons/icon_add.png</iconset>
+   </property>
+   <property name="text">
+    <string>Добавить</string>
+   </property>
+  </action>
+  <action name="action_add_filter">
+   <property name="icon">
+    <iconset>
+     <normaloff>../icons/icon_filter.png</normaloff>../icons/icon_filter.png</iconset>
+   </property>
+   <property name="text">
+    <string>Фильтр</string>
+   </property>
+  </action>
+  <action name="action_add_author">
+   <property name="text">
+    <string>Добавить автора</string>
+   </property>
+  </action>
+  <action name="action_add_genre">
+   <property name="text">
+    <string>Добавить жанр</string>
+   </property>
+  </action>
+  <action name="action_add_op_type">
+   <property name="text">
+    <string>Добавить тип операции</string>
    </property>
   </action>
  </widget>

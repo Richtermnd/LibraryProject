@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>742</width>
+    <height>596</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QTableWidget" name="table_main">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>701</width>
+     <height>501</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox_mode">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Всё</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Возврат</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Выдача</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Долги</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLineEdit" name="input_search">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>20</y>
+     <width>521</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
