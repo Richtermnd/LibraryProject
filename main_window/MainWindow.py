@@ -10,7 +10,7 @@ class MainWindow(QMainWindow):
     """ Главное окно """
     def __init__(self):
         super().__init__()
-        uic.loadUi(r'..\ui\MainWindow.ui', self)
+        uic.loadUi(r'ui\MainWindow.ui', self)
         self._initUI()
 
     # Соединение событий с необходимыми функциями

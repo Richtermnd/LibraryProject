@@ -8,10 +8,10 @@ class _BasePanel(QWidget):
     def __init__(self, filter_form, add_item_form, about_widget, table, headers, base_req, filter_params):
         # -- UI --
         super().__init__()
-        uic.loadUi(r'..\ui\Panel.ui', self)
+        uic.loadUi(r'ui\Panel.ui', self)
 
         # -- db --
-        self.con = sqlite3.connect(r'..\db\Library_db.db')
+        self.con = sqlite3.connect(r'db\Library_db.db')
 
         # -- vars --
         self.filter_list = []
@@ -73,7 +73,8 @@ class _BasePanel(QWidget):
             item.setFlags(QtCore.Qt.ItemIsEnabled)
             self.table_filter.setItem(i, 0, item)
 
-            criter = str(value)
+            if param == 'Состояние':
+                criter = 'Доступна' if value == 2 else 'Недоступна'
             item = QTableWidgetItem(criter)
             item.setFlags(QtCore.Qt.ItemIsEnabled)
             self.table_filter.setItem(i, 1, item)

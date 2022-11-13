@@ -11,8 +11,8 @@ class ClientInfo(QWidget):
     """ Детальная информация о клиенте """
     def __init__(self, client_id):
         super().__init__()
-        uic.loadUi(r'..\ui\ClientInfo.ui', self)
-        self.con = sqlite3.connect(r'..\db\Library_db.db')
+        uic.loadUi(r'ui\ClientInfo.ui', self)
+        self.con = sqlite3.connect(r'db\Library_db.db')
         self.headers = ['Книга', 'Тип', 'Дата']
         self.base_req = f"""
                             SELECT book.title,

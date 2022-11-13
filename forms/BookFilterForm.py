@@ -12,7 +12,7 @@ class BookFilterForm(_BaseForm):
         label = QLabel('Параметр')
         label.setObjectName('param')
         cb = QComboBox()
-        cb.addItems(['', 'id', 'Название', 'Автор', 'Жанр', 'Год', 'Статус'])
+        cb.addItems(['', 'id', 'Название', 'Автор', 'Жанр', 'Год', 'Состояние'])
         cb.currentIndexChanged.connect(self.choose_param)
         cb.required = True
         self.formLayout.addRow(label, cb)

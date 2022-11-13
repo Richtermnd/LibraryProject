@@ -11,8 +11,8 @@ class _BaseForm(QWidget):
     """ Базовая форма для заполнения какой-либо информации """
     def __init__(self, holder):
         super().__init__()
-        uic.loadUi(r'..\ui\Form.ui', self)
-        self.con = sqlite3.connect(r'..\db\Library_db.db')
+        uic.loadUi(r'ui\Form.ui', self)
+        self.con = sqlite3.connect(r'db\Library_db.db')
         # holder - объект, которому будет возвращаться результат формы
         self.holder = holder
         self.button_add.clicked.connect(self.get_form_result)
