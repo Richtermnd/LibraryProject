@@ -5,6 +5,7 @@ from custom_widgets.PathPointer import PathPointer
 
 
 class BookForm(_BaseForm):
+    """ Форма для создания книги """
     def __init__(self, *args, **kwargs):
         super(BookForm, self).__init__(*args, **kwargs)
 
@@ -57,6 +58,7 @@ class BookForm(_BaseForm):
         self.formLayout.addRow(label, field)
 
     def return_result(self, res):
-        self.holder.add_item(res)
         self.close()
+        # add_item - BasePanel method
+        self.holder.add_item(res)
 

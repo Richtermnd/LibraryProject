@@ -5,6 +5,7 @@ from forms._BaseForm import _BaseForm
 
 
 class ClientFilterForm(_BaseForm):
+    """ Форма для создания фильтра для панели клиентов """
     def __init__(self, *args, **kwargs):
         super(ClientFilterForm, self).__init__(*args, **kwargs)
 
@@ -18,6 +19,7 @@ class ClientFilterForm(_BaseForm):
         self.formLayout.addRow(label, cb)
 
     def choose_param(self):
+        """ Выбор необходимого параметра """
         if self.formLayout.rowCount() == 2:
             self.formLayout.removeRow(1)
 
@@ -34,6 +36,6 @@ class ClientFilterForm(_BaseForm):
         self.formLayout.addRow(label, field)
 
     def return_result(self, res):
+        self.close()
         # add_filter - BasePanel method
         self.holder.add_filter(res)
-        self.close()

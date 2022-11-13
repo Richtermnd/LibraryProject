@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget
+
 
 from info_widgets.BookPreview import BookPreview
 from info_widgets.ClientInfo import ClientInfo
@@ -11,7 +11,7 @@ class OperationsPanel(_BasePanel):
     def __init__(self):
         filter_form = OperationsFilterForm
         add_item_form = OperationForm
-        about_widget = QWidget
+        about_widget = None
         table = 'operation'
         headers = ['id', 'Книга', 'Клиент', 'Тип', 'Дата']
         base_req = f"""
@@ -35,7 +35,6 @@ class OperationsPanel(_BasePanel):
                                                               where id = {x}""").fetchone()[0],
                   lambda x: x]
         super().__init__(filter_form, add_item_form, about_widget, table, headers, base_req, params)
-        self._initUI()
 
     def show_about_widget(self):
         try:
@@ -58,12 +57,3 @@ class OperationsPanel(_BasePanel):
         # if preview is not attr it closing immediately
         self.preview.show()
         self.write_to_history(title)
-
-
-if __name__ == '__main__':
-    import sys
-    app = QApplication(sys.argv)
-    ex = OperationsPanel()
-    ex.show()
-    sys.exit(app.exec())
-

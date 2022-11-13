@@ -3,4 +3,5 @@ class BaseLibraryError(Exception):
 
 
 class FormError(BaseLibraryError):
+    """ Ошибка в заполнении формы """
     pass

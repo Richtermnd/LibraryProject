@@ -5,6 +5,7 @@ from forms.BookForm import BookForm
 
 
 class BooksPanel(_BasePanel):
+    """ Панель книг """
     def __init__(self):
         filter_form = BookFilterForm
         add_item_form = BookForm
@@ -32,4 +33,3 @@ class BooksPanel(_BasePanel):
                   lambda x: x,
                   lambda x: x - 1]
         super().__init__(filter_form, add_item_form, about_widget, table, headers, base_req, params)
-        self._initUI()

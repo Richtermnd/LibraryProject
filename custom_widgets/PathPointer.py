@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QLineEdit, QPushButton, QFileDialog, QHBoxLayout, QW
 
 class PathPointer(QWidget):
     """
-        Widget for Form that use to select a file and contain path
+       Виджет для выбора файла и указания пути к нему
     """
 
     def __init__(self):

@@ -3,6 +3,7 @@ from forms._BaseForm import _BaseForm
 
 
 class ClientForm(_BaseForm):
+    """ Форма для создания клиента """
     def __init__(self, *args, **kwargs):
         super(ClientForm, self).__init__(*args, **kwargs)
 
@@ -14,6 +15,7 @@ class ClientForm(_BaseForm):
         self.formLayout.addRow(label, field)
 
     def return_result(self, res):
-        self.holder.add_item(res)
         self.close()
+        # add_item - BasePanel method
+        self.holder.add_item(res)
 

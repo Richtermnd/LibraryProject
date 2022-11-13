@@ -1,13 +1,12 @@
-import sqlite3
-
 from PyQt5.QtCore import QDate
-from PyQt5.QtWidgets import QLabel, QComboBox, QLineEdit, QApplication, QDateEdit
+from PyQt5.QtWidgets import QLabel, QComboBox, QLineEdit, QDateEdit
 
 from custom_widgets.DigitLineEdit import DigitLineEdit
 from forms._BaseForm import _BaseForm
 
 
 class OperationsFilterForm(_BaseForm):
+    """ Форма для создания фильтра для панели операций """
     def __init__(self, holder):
         super(OperationsFilterForm, self).__init__(holder)
 
@@ -20,6 +19,7 @@ class OperationsFilterForm(_BaseForm):
         self.formLayout.addRow(label, field)
 
     def choose_param(self):
+        """ Выбор необходимого параметра """
         if self.formLayout.rowCount() == 2:
             self.formLayout.removeRow(1)
         cur = self.con.cursor()
@@ -48,6 +48,7 @@ class OperationsFilterForm(_BaseForm):
         self.formLayout.addRow(label, field)
 
     def return_result(self, res):
+        self.close()
         # add_filter - BasePanel method
         self.holder.add_filter(res)
-        self.close()
+

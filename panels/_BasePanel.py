@@ -4,6 +4,7 @@ from PyQt5 import uic, QtCore
 
 
 class _BasePanel(QWidget):
+    """ Базовая панель """
     def __init__(self, filter_form, add_item_form, about_widget, table, headers, base_req, filter_params):
         # -- UI --
         super().__init__()
@@ -14,16 +15,18 @@ class _BasePanel(QWidget):
 
         # -- vars --
         self.filter_list = []
-        self.filter_form = filter_form
-        self.add_item_form = add_item_form
-        self.about_widget = about_widget
-        self.table = table
-        self.headers = headers
-        self.base_req = base_req
-        self.filter_params = filter_params
+        self.filter_form = filter_form  # Форма для фильтра
+        self.add_item_form = add_item_form  # Форма для добавления
+        self.about_widget = about_widget  # Форма
+        self.table = table  # Имя таблицы (используется в add_item)
+        self.headers = headers  # Заголовки для таблицы
+        self.base_req = base_req  # Базовый запрос для получения данных из дб
+        self.filter_params = filter_params  # Используется в apply_filters
+
+        self._initUI()
 
     def _initUI(self) -> None:
-        """ Need to call necessary """
+        """ Привзяка кнопок """
         # -- Connect actions --
         self.input_search.textChanged.connect(self.update_main_table)
         self.button_add_filter.clicked.connect(self.show_filter_form)
@@ -33,15 +36,18 @@ class _BasePanel(QWidget):
         # -- loading and update other widgets --
         self.update_main_table()
 
-    # Table and filters function
+    # Методы таблицы и фильтров
     ############################
     def update_main_table(self) -> None:
-        """ Update main table with filters and other """
+        """ Обновляет таблицу """
         cur = self.con.cursor()
         res = cur.execute(self.base_req).fetchall()
+        # Поиск по строке
         res = self.search(res)
+        # Применение фильтров
         res = self.apply_filters(res)
 
+        # Загрузка таблицы
         self.table_main.setRowCount(len(res))
         self.table_main.setColumnCount(len(self.headers))
         self.table_main.setHorizontalHeaderLabels(self.headers)
@@ -58,7 +64,7 @@ class _BasePanel(QWidget):
         self.table_main.resizeColumnsToContents()
 
     def update_filter_table(self) -> None:
-        """ Fill table of filters """
+        """ Обновление таблицы фильтров """
         self.table_filter.setRowCount(0)
         for i, (key, value) in enumerate(self.filter_list):
             self.table_filter.setRowCount(self.table_filter.rowCount() + 1)
@@ -75,34 +81,37 @@ class _BasePanel(QWidget):
         self.table_filter.resizeColumnsToContents()
 
     def apply_filters(self, res):
+        """ Применение фильтров """
         for col, value in self.filter_list:
             value = self.filter_params[col - 1](value)
             res = [elem for elem in res if elem[col - 1] == value]
         return res
 
     def add_filter(self, fltr: dict) -> None:
-        """ Add filter from form to filter list """
+        """ Добавление фильтра в filter_list и обновление таблиц для его применения """
         self.filter_list.append(tuple(fltr.values()))
         self.update_filter_table()
         self.update_main_table()
 
     def remove_filter(self) -> None:
-        """ Remove filter """
+        """ Удаляет фильтр """
         try:
             index = self.table_filter.currentItem().row()
-        except AttributeError as e:
+        except AttributeError:
             return
         self.filter_list.pop(index)
         self.update_filter_table()
         self.update_main_table()
 
     def search(self, table):
+        """ Поиск по строке ввода """
         text = self.input_search.text().lower()
         if len(text) >= 3:
             return [elem for elem in table if text in elem[1].lower()]
         return table
 
     def show_about_widget(self):
+        """ Показывает виджет с детальной информацией """
         try:
             row = self.table_main.currentItem().row()
             index = self.table_main.item(row, 0).text()
@@ -119,19 +128,22 @@ class _BasePanel(QWidget):
         self.form = self.filter_form(self)
         self.form.show()
 
-    def write_to_history(self, title) -> None:
+    def write_to_history(self, title):
+        """ Записывает в историю """
         self.table_history.setRowCount(self.table_history.rowCount() + 1)
         item = QTableWidgetItem(str(title))
         item.setFlags(QtCore.Qt.ItemIsEnabled)
         self.table_history.setItem(self.table_history.rowCount() - 1, 0, item)
     ############################
 
-    # db functions
+    # Методы для бд
+    ###########################
     def show_add_item_form(self):
         self.form = self.add_item_form(self)
         self.form.show()
 
     def add_item(self, data: dict):
+        """ Записывает в бд """
         req = f"""INSERT INTO {self.table}({', '.join(data.keys())}) """ \
               f"""VALUES({', '.join(['?' for _ in range(len(data))])});"""
         cur = self.con.cursor()
@@ -141,4 +153,5 @@ class _BasePanel(QWidget):
     ###########################
 
     def closeEvent(self, a0) -> None:
+        self.con.commit()
         self.con.close()

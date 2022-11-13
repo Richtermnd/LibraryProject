@@ -8,6 +8,7 @@ from PyQt5 import uic, QtCore
 
 
 class ClientInfo(QWidget):
+    """ Детальная информация о клиенте """
     def __init__(self, client_id):
         super().__init__()
         uic.loadUi(r'..\ui\ClientInfo.ui', self)
@@ -66,35 +67,35 @@ class ClientInfo(QWidget):
         return list(filter(lambda x: x[1] == type, table))
 
     def debts(self, table):
-        # reverse table for iter in history order
+        """ Долги клиента """
         operations_stack = table
 
         op_state = {}
         # will use like value for op_state
         BookState = namedtuple('BookState', ['state', 'date', 'op'])
 
-        # like constants
-        type_return = 'Возврат'
-        type_giving = 'Выдача'
-
         cur = self.con.cursor()
+        # Методом стэка
         while operations_stack:
             op = operations_stack.pop()
             book_title, op_type, date = op
-            # will be used like key for op_state
+            # Будет использовавться как ключ для op_state
             book_id = cur.execute(f"select id from book where title = '{book_title}'").fetchone()[0]
 
-            if op_type == type_giving:
-                op_state[book_id] = BookState(False, date, op)  # False means debt
-            elif op_type == type_return:
+            if op_type == 'Выдача':
+                op_state[book_id] = BookState(True, date, op)  # True означае, что должен
+            elif op_type == 'Возврат':
                 if book_id in op_state:
-                    cur_date = datetime.datetime.strptime(date, '%d.%m.%Y')  # date from current op
-                    prev_op = op_state[book_id]
-                    prev_date = datetime.datetime.strptime(prev_op.date, '%d.%m.%Y')  # date prev op
-                    if cur_date < prev_date or prev_date is None:  # this check is useless if writing in db correct
+                    # Преобразованные для сравнения даты
+                    cur_date = datetime.datetime.strptime(date, '%d.%m.%Y')
+                    prev_date = datetime.datetime.strptime(op_state[book_id].date, '%d.%m.%Y')
+
+                    # Если корректная дата или последняя операции - возврат
+                    if cur_date < prev_date or prev_date is None:
                         continue
-                op_state[book_id] = BookState(True, None, op)  # True means that book returned
-        return [elem[2] for elem in op_state.values() if not elem.state]
+                op_state[book_id] = BookState(False, None, op)  # False означает, что книгу уже вернули
+        # Возвращаем список долгов
+        return [elem.op for elem in op_state.values() if elem.state]
 
     def closeEvent(self, a0) -> None:
         self.con.close()

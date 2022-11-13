@@ -4,6 +4,7 @@ from custom_widgets.DigitLineEdit import DigitLineEdit
 
 
 class BookFilterForm(_BaseForm):
+    """ Форма для создания фильтра для панели книг """
     def __init__(self, *args, **kwargs):
         super(BookFilterForm, self).__init__(*args, **kwargs)
 
@@ -17,6 +18,9 @@ class BookFilterForm(_BaseForm):
         self.formLayout.addRow(label, cb)
 
     def choose_param(self):
+        """ Выбор необходимого параметра """
+
+        # Не допускает наличия лишних строк
         if self.formLayout.rowCount() == 2:
             self.formLayout.removeRow(1)
         cur = self.con.cursor()
@@ -46,6 +50,7 @@ class BookFilterForm(_BaseForm):
         self.formLayout.addRow(label, field)
 
     def return_result(self, res):
+        self.close()
         # add_filter - BasePanel method
         self.holder.add_filter(res)
-        self.close()
+

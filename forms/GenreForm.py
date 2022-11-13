@@ -1,9 +1,9 @@
-import sqlite3
 from PyQt5.QtWidgets import QLabel, QLineEdit
 from forms._BaseForm import _BaseForm
 
 
 class GenreForm(_BaseForm):
+    """ Форма для создания жанра """
     def __init__(self, *args, **kwargs):
         super(GenreForm, self).__init__(*args, **kwargs)
 

@@ -15,4 +15,3 @@ class ClientsPanel(_BasePanel):
         params = [lambda x: x,
                   lambda x: x]
         super().__init__(filter_form, add_item_form, about_widget, table, headers, base_req, params)
-        self._initUI()

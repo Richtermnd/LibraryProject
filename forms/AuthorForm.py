@@ -1,9 +1,9 @@
-import sqlite3
 from PyQt5.QtWidgets import QLabel, QLineEdit
 from forms._BaseForm import _BaseForm
 
 
 class AuthorForm(_BaseForm):
+    """ Форма для создания автора """
     def __init__(self, *args, **kwargs):
         super(AuthorForm, self).__init__(*args, **kwargs)
 

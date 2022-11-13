@@ -6,6 +6,7 @@ from PyQt5 import uic
 
 
 class BookPreview(QWidget):
+    """ Детальная информация о книге """
     def __init__(self, book_id):
         super().__init__()
         uic.loadUi(r'..\ui\BookPreview.ui', self)

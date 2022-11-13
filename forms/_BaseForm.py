@@ -8,20 +8,22 @@ from LibraryError import LibraryError
 
 
 class _BaseForm(QWidget):
+    """ Базовая форма для заполнения какой-либо информации """
     def __init__(self, holder):
         super().__init__()
         uic.loadUi(r'..\ui\Form.ui', self)
         self.con = sqlite3.connect(r'..\db\Library_db.db')
+        # holder - объект, которому будет возвращаться результат формы
         self.holder = holder
         self.button_add.clicked.connect(self.get_form_result)
         self.button_cancel.clicked.connect(self.close)
         self._initUI()
 
     def _initUI(self):
-        """ Override this. """
+        """ Инициализация ui, обязателен к перегрузке  """
 
     def get_form_result(self):
-        """ Return dict from form items"""
+        """ Считывает информацию с формы и отсылает её """
         res = {}
 
         # Read data from QFormLayout
@@ -66,7 +68,10 @@ class _BaseForm(QWidget):
         self.return_result(res)
 
     def return_result(self, res):
-        """ Override with necessary holder method and checks"""
+        """
+            Метод, который возвращает результат holder'у.
+            Обязателен к перегрузке с необходимыми проверками и методом holder'а
+        """
 
     def closeEvent(self, a0) -> None:
         self.con.commit()
