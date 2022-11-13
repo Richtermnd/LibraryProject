@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1089</width>
+    <width>824</width>
     <height>651</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <rect>
      <x>20</x>
      <y>70</y>
-     <width>801</width>
+     <width>541</width>
      <height>561</height>
     </rect>
    </property>
@@ -28,7 +28,7 @@
     <rect>
      <x>20</x>
      <y>20</y>
-     <width>661</width>
+     <width>381</width>
      <height>31</height>
     </rect>
    </property>
@@ -36,7 +36,7 @@
   <widget class="QPushButton" name="button_add_filter">
    <property name="geometry">
     <rect>
-     <x>850</x>
+     <x>590</x>
      <y>20</y>
      <width>211</width>
      <height>31</height>
@@ -49,7 +49,7 @@
   <widget class="QTableWidget" name="table_history">
    <property name="geometry">
     <rect>
-     <x>850</x>
+     <x>590</x>
      <y>400</y>
      <width>211</width>
      <height>231</height>
@@ -73,7 +73,7 @@
   <widget class="QTableWidget" name="table_filter">
    <property name="geometry">
     <rect>
-     <x>850</x>
+     <x>590</x>
      <y>110</y>
      <width>211</width>
      <height>271</height>
@@ -102,7 +102,7 @@
   <widget class="QPushButton" name="button_remove_filter">
    <property name="geometry">
     <rect>
-     <x>850</x>
+     <x>590</x>
      <y>60</y>
      <width>211</width>
      <height>31</height>
@@ -115,7 +115,7 @@
   <widget class="QPushButton" name="button_about">
    <property name="geometry">
     <rect>
-     <x>700</x>
+     <x>430</x>
      <y>20</y>
      <width>121</width>
      <height>31</height>

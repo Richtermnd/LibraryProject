@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1137</width>
-    <height>724</height>
+    <width>820</width>
+    <height>737</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1137</width>
+     <width>820</width>
      <height>26</height>
     </rect>
    </property>
@@ -37,7 +37,6 @@
     </property>
     <addaction name="action_add_author"/>
     <addaction name="action_add_genre"/>
-    <addaction name="action_add_op_type"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
