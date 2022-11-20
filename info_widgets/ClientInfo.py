@@ -55,7 +55,7 @@ class ClientInfo(QWidget):
     def search(self, table: list[list[str]]) -> list[list[str]]:
         text = self.input_search.text().lower()
         if len(text) >= 3:
-            return list(filter(lambda x: text in x[1].lower(), table))
+            return list(filter(lambda x: text in x[0].lower(), table))
         return table
 
     def apply_filters(self, table):
@@ -68,32 +68,24 @@ class ClientInfo(QWidget):
 
     def debts(self, table):
         """ Долги клиента """
-        operations_stack = table
+        operations_stack = table[:]
 
         op_state = {}
-        # will use like value for op_state
-        BookState = namedtuple('BookState', ['state', 'date', 'op'])
+        # Будет использовавться как значение для op_state
+        BookState = namedtuple('BookState', ['state', 'op'])
 
         cur = self.con.cursor()
         # Методом стэка
         while operations_stack:
             op = operations_stack.pop()
-            book_title, op_type, date = op
+            book_title, op_type, _ = op
             # Будет использовавться как ключ для op_state
-            book_id = cur.execute(f"select id from book where title = '{book_title}'").fetchone()[0]
+            book_id, = cur.execute(f"select id from book where title = '{book_title}'").fetchone()
 
             if op_type == 'Выдача':
-                op_state[book_id] = BookState(True, date, op)  # True означае, что должен
+                op_state[book_id] = BookState(True, op)  # True означае, что должен
             elif op_type == 'Возврат':
-                if book_id in op_state:
-                    # Преобразованные для сравнения даты
-                    cur_date = datetime.datetime.strptime(date, '%d.%m.%Y')
-                    prev_date = datetime.datetime.strptime(op_state[book_id].date, '%d.%m.%Y')
-
-                    # Если корректная дата или последняя операции - возврат
-                    if cur_date < prev_date or prev_date is None:
-                        continue
-                op_state[book_id] = BookState(False, None, op)  # False означает, что книгу уже вернули
+                op_state[book_id] = BookState(False, op)  # False означает, что книгу уже вернули
         # Возвращаем список долгов
         return [elem.op for elem in op_state.values() if elem.state]
 

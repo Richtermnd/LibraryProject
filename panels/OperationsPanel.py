@@ -26,7 +26,7 @@ class OperationsPanel(_BasePanel):
                              client,
                              operation_type ON operation.book = book.id AND 
                                                operation.client = client.id AND 
-                                               operation.type = operation_type.id;
+                                               operation.type = operation_type.id ORDER BY operation.id desc;
                   """
         params = [lambda x: x,
                   lambda x: x,
@@ -42,7 +42,6 @@ class OperationsPanel(_BasePanel):
             col = self.table_main.currentItem().column()
             title = self.table_main.item(row, col).text()
         except AttributeError:
-            self.exc_label.setText('Выберите поле')
             return
         if col == 1:
             cur = self.con.cursor()

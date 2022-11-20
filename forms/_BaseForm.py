@@ -57,7 +57,6 @@ class _BaseForm(QWidget):
                 elif isinstance(field, QDateEdit):
                     data = field.date().toPyDate().strftime('%d.%m.%Y')  # some value always present
                 else:
-                    print('unknown widget')
                     raise LibraryError.FormError(label)
             except LibraryError as e:
                 self.label_exc.setText(f'Ошибка в поле: {e}')

@@ -72,10 +72,9 @@ class _BasePanel(QWidget):
             item = QTableWidgetItem(str(param))
             item.setFlags(QtCore.Qt.ItemIsEnabled)
             self.table_filter.setItem(i, 0, item)
-
             if param == 'Состояние':
-                criter = 'Доступна' if value == 2 else 'Недоступна'
-            item = QTableWidgetItem(criter)
+                value = 'Доступна' if value == 2 else 'Недоступна'
+            item = QTableWidgetItem(str(value))
             item.setFlags(QtCore.Qt.ItemIsEnabled)
             self.table_filter.setItem(i, 1, item)
 

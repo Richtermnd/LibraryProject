@@ -57,7 +57,7 @@ class OperationForm(_BaseForm):
                 # Текущий и совершивший последнюю операции с книгой клиенты
                 curr_client, cur_date = op['client'], op['date']
                 prev_client, prev_date = cur.execute(f"""select client, date from operation 
-                                                where book = {op['book']} order by id""").fetchone()[::-1]
+                                                where book = {op['book']} order by id desc""").fetchone()
                 if curr_client != prev_client:
                     self.label_exc.setText('Книга не у этого клиента')
                     return False
