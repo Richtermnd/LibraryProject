@@ -1,9 +1,6 @@
 from collections import namedtuple
-import datetime
 import sqlite3
-import sys
-
-from PyQt5.QtWidgets import QWidget, QTableWidgetItem, QApplication
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem
 from PyQt5 import uic, QtCore
 
 
@@ -91,11 +88,3 @@ class ClientInfo(QWidget):
 
     def closeEvent(self, a0) -> None:
         self.con.close()
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = ClientInfo(2)
-    ex.show()
-    sys.exit(app.exec())
-
