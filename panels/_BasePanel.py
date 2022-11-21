@@ -65,6 +65,7 @@ class _BasePanel(QWidget):
 
     def update_filter_table(self) -> None:
         """ Обновление таблицы фильтров """
+        cur = self.con.cursor()
         self.table_filter.setRowCount(0)
         for i, (key, value) in enumerate(self.filter_list):
             self.table_filter.setRowCount(self.table_filter.rowCount() + 1)
@@ -72,8 +73,13 @@ class _BasePanel(QWidget):
             item = QTableWidgetItem(str(param))
             item.setFlags(QtCore.Qt.ItemIsEnabled)
             self.table_filter.setItem(i, 0, item)
-            if param == 'Состояние':
-                value = 'Доступна' if value == 2 else 'Недоступна'
+            match param:
+                case 'Состояние':
+                    value = 'Доступна' if value == 2 else 'Недоступна'
+                case 'Автор':
+                    value, = cur.execute(f"""SELECT name from author where id = {value}""").fetchone()
+                case 'Жанр':
+                    value, = cur.execute(f"""SELECT name from genre where id = {value}""").fetchone()
             item = QTableWidgetItem(str(value))
             item.setFlags(QtCore.Qt.ItemIsEnabled)
             self.table_filter.setItem(i, 1, item)
