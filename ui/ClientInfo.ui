@@ -28,7 +28,7 @@
     <rect>
      <x>20</x>
      <y>20</y>
-     <width>161</width>
+     <width>91</width>
      <height>31</height>
     </rect>
    </property>
@@ -56,11 +56,24 @@
   <widget class="QLineEdit" name="input_search">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>120</x>
      <y>20</y>
-     <width>521</width>
+     <width>471</width>
      <height>31</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="export_button">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>20</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Экспорт</string>
    </property>
   </widget>
  </widget>
